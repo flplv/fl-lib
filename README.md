@@ -1,6 +1,6 @@
 # fl-lib
 
-**Yet another single header C authorial library**
+**Yet another single header C/CPP authorial library**
 
 Fully GNU C compliant, 100% type checked, tested and SAFE!
 
