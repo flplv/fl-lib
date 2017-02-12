@@ -5,8 +5,8 @@
 Fully GNU C compliant, 100% type checked, tested and SAFE!
 
 Cut the rap, go straight to the point and download:
-  - (fl-lib.h)[https://github.com/flplv/fl-lib/releases/download/v0.0.0/fl-lib.h] for C code, and/or;
-  - (fl-lib.hpp)[https://github.com/flplv/fl-lib/releases/download/v0.0.0/fl-lib.hpp] for C++ code:
+  - [fl-lib.h](https://github.com/flplv/fl-lib/releases/download/v0.0.0/fl-lib.h) for C code, and/or;
+  - [fl-lib.hpp](https://github.com/flplv/fl-lib/releases/download/v0.0.0/fl-lib.hpp) for C++ code:
 
 ## How to use it?
 
