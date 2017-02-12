@@ -1,13 +1,25 @@
 .phony: all
 
-output =../fl-lib.h
+output_h =../fl-lib.h
+output_hpp =../fl-lib.hpp
 headers = \
     includes.h \
-	ring_fifo.h
+    macro_typeof.hXX \
+    macro_auto_type.hXX \
+    macro_offsetof.hXX \
+    macro_container_of.hXX \
+    macro_build_bug_on_zero.h \
+    macro_gnuc_prereq.h \
+    macro_sizeof.h \
+    macro_array_size.hXX \
+    ring_fifo.h \
+    linked_list.h \
+    time.h \
 
-processed_headers = $(foreach f, $(headers), $(f) .tmp_file )
+processed_headers_h = $(subst .hXX,.h,$(foreach f, $(headers), $(f) .tmp_file ))
+processed_headers_hpp = $(subst .hXX,.hpp,$(foreach f, $(headers), $(f) .tmp_file ))
 
-all: $(output)
+all: $(output_h) $(output_hpp) rm_tmp_file
 
 clean:
 	@rm -f $(output)
@@ -15,11 +27,21 @@ clean:
 .tmp_file:
 	@echo "" > .tmp_file
 
-$(output): $(processed_headers)
-	@echo "#ifndef _FL_LIB_H_" > $(output)
-	@echo "#define _FL_LIB_H_" >> $(output)
-	@echo "" >> $(output)
-	@cat $(processed_headers) >> $(output)
-	@echo "#endif /* _FL_LIB_H_ */" >> $(output)
+rm_tmp_file:
 	@rm .tmp_file
-	@echo "Generated $(output)."
+
+$(output_h): $(processed_headers_h)
+	@echo "#ifndef _FL_LIB_H_" > $@
+	@echo "#define _FL_LIB_H_" >> $@
+	@echo "" >> $@
+	@cat $(processed_headers_h) >> $@
+	@echo "#endif /* _FL_LIB_H_ */" >> $@
+	@echo "Generated $@."
+
+$(output_hpp): $(processed_headers_hpp)
+	@echo "#ifndef _FL_LIB_HPP_" > $@
+	@echo "#define _FL_LIB_HPP_" >> $@
+	@echo "" >> $@
+	@cat $(processed_headers_hpp) >> $@
+	@echo "#endif /* _FL_LIB_HPP_ */" >> $@
+	@echo "Generated $@."

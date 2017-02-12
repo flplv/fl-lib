@@ -1,8 +1,8 @@
 #include "catch.hpp"
-#include <fl-lib.h>
+#include <fl-lib.hpp>
 #include <climits>
 
-TEST_CASE( "fl_ring_fifo: initialization size")
+TEST_CASE("fl_ring_fifo: initialization size")
 {
     fl_ring_fifo_t cut;
     int sz;

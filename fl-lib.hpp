@@ -1,20 +1,32 @@
-#ifndef _FL_LIB_H_
-#define _FL_LIB_H_
+#ifndef _FL_LIB_HPP_
+#define _FL_LIB_HPP_
 
 #include <stdbool.h>
 #include <stdint.h>
 #include <stddef.h>
 
-#define fl_typeof(___zarg) typeof(___zarg)
+#include <typeinfo>
+#include <type_traits>
 
-#define fl_auto_type(___zcxzzarg) fl_typeof(___zcxzzarg)
+#define fl_auto_type(___zcxzzarg) auto
+#define fl_typeof(___zarg) std::remove_reference<decltype(___zarg)>::type
 
-#include <stddef.h>
-#define fl_offsetof(___j1h3oi1bob,___j1h3oi1bob2) offsetof(___j1h3oi1bob,___j1h3oi1bob2)
+#define fl_auto_type(___zcxzzarg) auto
 
-#define fl_container_of(ptr, type, member) ({ \
-        const typeof( ((type *)0)->member ) *__mptr = (ptr); \
-        (type *)( (char *)__mptr - fl_offsetof(type,member) );})
+template<class P, class M>
+size_t fl_offsetof(const M P::*member)
+{
+    return (size_t) &( reinterpret_cast<P*>(0)->*member);
+}
+
+template<class P, class M>
+P* fl_container_of_impl(M* ptr, const M P::*member)
+{
+    return (P*)( (char*)ptr - fl_offsetof(member));
+}
+
+#define fl_container_of(ptr, type, member) \
+     fl_container_of_impl (ptr, &type::member)
 
 #define FL_BUILD_BUG_ON_ZERO(e) \
    (sizeof(struct { int:-!!(e)*1234; }))
@@ -31,19 +43,11 @@
 #include <stddef.h>
 #define fl_sizeof(___j1h32314141) sizeof(___j1h32314141)
 
-#if FL_GNUC_PREREQ(3, 1)
-#define FL_SAME_TYPE(a, b) \
-    __builtin_types_compatible_p(fl_typeof(a), fl_typeof(b))
-#define FL_MUST_BE_ARRAY(a) \
-    FL_BUILD_BUG_ON_ZERO(FL_SAME_TYPE((a), &(*a)))
-#else
-#define FL_MUST_BE_ARRAY(a) \
-    FL_BUILD_BUG_ON_ZERO(fl_sizeof(a) % fl_sizeof(*a))
-#endif
+template <typename T, size_t N>
+char ( &FL_ARRAY_SIZE_HELPER( T (&array)[N] ))[N];
 
-#define FL_ARRAY_SIZE(a) ( \
-    (fl_sizeof(a) / fl_sizeof(*a)) \
-    + FL_MUST_BE_ARRAY(a))
+#define FL_ARRAY_SIZE( array ) \
+     (sizeof( FL_ARRAY_SIZE_HELPER( array ) ))
 
 typedef struct fl_struct_ring_fifo_private {
     size_t mask;
@@ -378,4 +382,4 @@ typedef struct fl_struct_linked_list_head fl_linked_list_t;
 
 #endif /* FL_ENABLE_TIME_MODULE */
 
-#endif /* _FL_LIB_H_ */
+#endif /* _FL_LIB_HPP_ */
