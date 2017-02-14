@@ -2,15 +2,15 @@
 
 **Yet another single header C/CPP authorial library**
 
-Fully GNU C compliant, 100% type checked, tested and SAFE!
+Fully GNU C compliant, 100% type checked, tested and safe.
 
-Cut the rap, go straight to the point and download:
+These are the last released single headers:
   - [fl-lib.h](https://github.com/flplv/fl-lib/releases/download/v0.0.0/fl-lib.h) for C code, and/or;
   - [fl-lib.hpp](https://github.com/flplv/fl-lib/releases/download/v0.0.0/fl-lib.hpp) for C++ code:
 
 ## How to use it?
 
-Read the tests! If tooooo lasy to, then enjoy this ring FIFO snipped below:
+Have a look at the tests folder, there you'll find usage examples. Anyways, enjoy this ring FIFO snipped below:
 
 ```c
 #include <fl-lib.h>
@@ -34,8 +34,8 @@ void look_how_beautiful_i_get_with_ring_fifos()
 
   - Push/pop/peek signatures for the storage classes
 
-  Wanna feature? Ask.
+  Whould you like a feature? Please, ask.
 
 ## Licensing
 
-Promiscuous license! Use and abuse. Code as is, no grantees.
+Use as you want. Have fun. Code as is, no grantees.
