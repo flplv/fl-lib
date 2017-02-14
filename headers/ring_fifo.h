@@ -1,3 +1,12 @@
+/*
+    fl_ring_fifo
+    - Single consumer / single Producer safe
+    - FIFO's available slots will be rounded down to a power of two integer, 
+       it is a requirement of the SCSP safety algorithm. Use power of two
+       integer in buffer sizes and `num_of_slots` init parameter to avoid 
+       rounding.
+*/
+
 typedef struct fl_struct_ring_fifo_private {
     size_t mask;
     size_t wrIdx;
