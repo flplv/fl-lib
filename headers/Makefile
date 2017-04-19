@@ -19,10 +19,12 @@ headers = \
 processed_headers_h = $(subst .hXX,.h,$(foreach f, $(headers), $(f) .tmp_file ))
 processed_headers_hpp = $(subst .hXX,.hpp,$(foreach f, $(headers), $(f) .tmp_file ))
 
-all: $(output_h) $(output_hpp) rm_tmp_file
+all: $(output_h) $(output_hpp)
 
-clean:
-	@rm -f $(output)
+prepare:
+	mkdir -f objs
+
+clean: rm_tmp_file
 
 .tmp_file:
 	@echo "" > .tmp_file
