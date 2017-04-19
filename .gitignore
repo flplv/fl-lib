@@ -3,3 +3,4 @@
 *.o
 fl-lib-tests
 headers/.tmp_file
+tests/objs

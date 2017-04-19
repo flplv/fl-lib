@@ -12,6 +12,7 @@ headers = \
     macro_gnuc_prereq.h \
     macro_sizeof.h \
     macro_array_size.hXX \
+    array.h \
     ring_fifo.h \
     linked_list.h \
     time.h \

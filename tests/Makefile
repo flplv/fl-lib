@@ -12,16 +12,8 @@ CPPFLAGS= -I ../ -Wall -std=gnu++14
 LDFLAGS=
 
 OBJDIR = objs
-SRCFILES = \
-    main.cpp \
-    test_c_wrapper.cpp \
-    test_macros.cpp \
-    test_ring_fifo.cpp \
-    test_linked_list.cpp \
-    test_time.cpp \
-    test_from_c_code.c
-
-SRCDIRS =
+SRCFILES =
+SRCDIRS = ./
 
 get_src_from_dir  = $(wildcard $1/*.cpp) $(wildcard $1/*.c)
 get_dirs_from_dirspec  = $(wildcard $1)
