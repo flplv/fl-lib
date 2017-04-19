@@ -84,7 +84,7 @@ TEST_CASE ("fl_ring_fifo: read and write")
     }
 
     CHECK_THAT( reference_buffer, Catch::Matchers::Equals( buffer ) );
-    CHECK (15 == fl_ring_fifo_count(&cut));
+    CHECK (16 == fl_ring_fifo_count(&cut));
 
 
     i = 0;
@@ -107,7 +107,7 @@ TEST_CASE ("fl_ring_fifo: read and write")
             fl_ring_fifo_write_increment(&cut);
         }
 
-        CHECK (15 == fl_ring_fifo_count(&cut));
+        CHECK (16 == fl_ring_fifo_count(&cut));
 
         i = 0;
 
@@ -142,4 +142,9 @@ TEST_CASE ("fl_ring_fifo: buffer boundaries")
 
     CHECK (INT_MAX == buffer[0]);
     CHECK (INT_MAX == buffer[1025]);
+
+    CHECK (c == 1024);
+
+    while (c-- > 0)
+        CHECK (c == buf[c]);
 }

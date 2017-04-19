@@ -45,6 +45,16 @@
     (fl_sizeof(a) / fl_sizeof(*a)) \
     + FL_MUST_BE_ARRAY(a))
 
+/*
+    fl_ring_fifo
+    - Single consumer / single Producer safe
+    - FIFO's available slots will be rounded down to a power of two integer,
+       it is a requirement of the SCSP safety algorithm. Use power of two
+       integer in buffer sizes and `num_of_slots` init parameter to avoid
+       rounding.
+    - size_t must be atomic in the platform
+*/
+
 typedef struct fl_struct_ring_fifo_private {
     size_t mask;
     size_t wrIdx;
@@ -115,14 +125,14 @@ static inline bool fl_ring_fifo_empty(fl_ring_fifo_t * obj)
     return obj->rdIdx == obj->wrIdx;
 }
 
-static inline bool fl_ring_fifo_full(fl_ring_fifo_t * obj)
-{
-    return (obj->mask & obj->rdIdx) == (obj->mask & (obj->wrIdx+1));
-}
-
 static inline size_t fl_ring_fifo_count(fl_ring_fifo_t * obj)
 {
-    return obj->mask & (obj->wrIdx - obj->rdIdx);
+    return obj->wrIdx - obj->rdIdx;
+}
+
+static inline bool fl_ring_fifo_full(fl_ring_fifo_t * obj)
+{
+    return fl_ring_fifo_count (obj) == fl_ring_fifo_num_of_slots (obj);
 }
 
 struct fl_struct_linked_list_head
