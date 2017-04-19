@@ -5,6 +5,7 @@
        it is a requirement of the SCSP safety algorithm. Use power of two
        integer in buffer sizes and `num_of_slots` init parameter to avoid 
        rounding.
+    - size_t must be atomic in the platform
 */
 
 typedef struct fl_struct_ring_fifo_private {
